@@ -37,11 +37,6 @@ coverage/
 *.nupkg
 *.snupkg
 
-# Dependency directories
-node_modules/
-bower_components/
-wwwroot/lib/
-
 # Docker (NO se ignoran, para que sí se trackeen)
 # Si quieres ignorarlos, descomenta:
 # **/Dockerfile*

@@ -13,7 +13,7 @@ out/
 .idea/
 
 # VS Code
-.vscode/
+vscode/
 .history/
 *.code-workspace
 

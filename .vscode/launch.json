@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (HTTPS)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build", // Asegúrate de que haya una tarea para construir
+            "program": "${workspaceFolder}/LeaveManagementSystem/bin/Debug/net9.0/LeaveManagementSystem.dll", // Ajusta según tu versión de .NET (net8.0 o net9.0)
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "https://localhost:7137" // Asegura que use HTTPS
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "C# Attach to Process (HotReload)",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ]
+}

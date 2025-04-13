@@ -138,9 +138,12 @@ namespace LeaveManagementSystem.Web.Controllers
                 return NotFound();
             }
             
-            await _leaveTypeService.TerminateAsync((long)id);
-
-            return RedirectToAction(nameof(Index));
+            var leaveType = await _leaveTypeService.GetByIdAsync((long)id);
+            if(leaveType == null)
+            {
+                return NotFound();
+            }
+            return View(leaveType);
         }
 
         // POST: LeaveType/Delete/5

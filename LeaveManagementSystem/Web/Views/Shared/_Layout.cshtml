@@ -20,7 +20,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LeaveManagementSystem</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -31,12 +31,12 @@
                     <!-- Menú común -->
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">
+                            <a class="nav-link text-light" asp-controller="Home" asp-action="Index">
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">
+                            <a class="nav-link text-light" asp-controller="Home" asp-action="Privacy">
                                 Privacity
                             </a>
                         </li>
@@ -47,22 +47,22 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">Hola,
+                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index">Hola,
                                     @User?.Identity?.Name</a>
                             </li>
                             <li class="nav-item">
                                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" method="post">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Cerrar sesión</button>
+                                    <button type="submit" class="nav-link btn btn-link text-light">Cerrar sesión</button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
+                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Iniciar sesión</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
+                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
                             </li>
                         }
                     </ul>

@@ -27,7 +27,7 @@ namespace LeaveManagementSystem.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var leaveTypeList = await _leaveTypeService.GetAllAsync();
-            return View(leaveTypeList);
+            return View(leaveTypeList.Data);
         }
 
         // GET: LeaveType/Details/5
@@ -39,12 +39,12 @@ namespace LeaveManagementSystem.Web.Controllers
             }
 
             var leaveType = await _leaveTypeService.GetByIdAsync(id.Value);
-            if (leaveType == null)
+            if (leaveType.Data == null)
             {
                 return NotFound();
             }
 
-            return View(leaveType);
+            return View(leaveType.Data);
         }
 
         // GET: LeaveType/Create
@@ -71,7 +71,12 @@ namespace LeaveManagementSystem.Web.Controllers
                 Name = dto.Name,
                 NumberOfDays = dto.NumberOfDays
             };
-            await _leaveTypeService.AddAsync(leaveType);
+            var result  = await _leaveTypeService.AddAsync(leaveType);
+            if (!result.Success)
+            {
+                ModelState.AddModelError(string.Empty, result.Error!);
+                return View(dto);
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -84,11 +89,18 @@ namespace LeaveManagementSystem.Web.Controllers
             }
 
             var leaveType = await _leaveTypeService.GetByIdAsync(id.Value);
-            if (leaveType == null)
+            if (leaveType.Data == null)
             {
                 return NotFound();
             }
-            return View(leaveType);
+
+            var dto = new CreateLeaveTypeDto() {
+                Id = leaveType.Data.Id,
+                Name = leaveType.Data.Name,
+                NumberOfDays = leaveType.Data.NumberOfDays
+            };
+
+            return View(dto);
         }
 
         // POST: LeaveType/Edit/5
@@ -112,7 +124,12 @@ namespace LeaveManagementSystem.Web.Controllers
                         Name = dto.Name,
                         NumberOfDays = dto.NumberOfDays
                     };
-                    await _leaveTypeService.UpdateAsync(leaveType);
+                    var result = await _leaveTypeService.UpdateAsync(leaveType);
+                    if (!result.Success)
+                    {
+                        ModelState.AddModelError(string.Empty, result.Error!);
+                        return View(dto);
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -139,11 +156,11 @@ namespace LeaveManagementSystem.Web.Controllers
             }
             
             var leaveType = await _leaveTypeService.GetByIdAsync((long)id);
-            if(leaveType == null)
+            if(leaveType.Data == null)
             {
                 return NotFound();
             }
-            return View(leaveType);
+            return View(leaveType.Data);
         }
 
         // POST: LeaveType/Delete/5
@@ -152,12 +169,11 @@ namespace LeaveManagementSystem.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var leaveType = await _leaveTypeService.GetByIdAsync(id);
-            if (leaveType != null)
+            if (leaveType.Data != null)
             {
-                await _leaveTypeService.TerminateAsync(leaveType.Id);
+                await _leaveTypeService.TerminateAsync(leaveType.Data.Id);
             }
-
-            await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 
